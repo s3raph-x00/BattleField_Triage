@@ -26,7 +26,7 @@
 ######################################################################
 ### AUTHOR:      s3raph                                            ###
 ### DATE:        02/24/2025                                        ###
-### VERSION:     v.42 (Beta)                                       ###
+### VERSION:     v.421 (Beta)                                      ###
 ### SYNOPSIS:    Battle Field Triage Script Meant To Standardize   ###
 ###              collection and initial analysis.                  ###
 ######################################################################
@@ -1025,7 +1025,6 @@ Function Function_RIP_Prefetch_and_Network
         echo "" >> $SavedInitialFile
         echo "-----Service Output-----" >> $SavedInitialFile
         get-service -Verbose | Format-List * >> $SavedInitialFile
-        # HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory
     }
     catch
     {
@@ -1932,8 +1931,6 @@ Function Function_RIP_COMMON_AUTORUNS
 
         $var_InfoWin32_Reg_CurUser_ExRun = $SavedForensicArtifactsCSV + $computername + "_Autoruns_Info.Win32_Reg_CurUser_ExRun.csv"
         Get-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer\Run" | export-csv -NoTypeInformation -Verbose -Append $var_InfoWin32_Reg_CurUser_ExRun
-        
-        # %APPDATA%\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
     }
     catch
     {
@@ -2092,7 +2089,6 @@ Function Function_RIP_Alt_Data_Streams
             }
         }
     }
-    ##cmd.exe /c start dir /s /r %SYSTEMROOT%\ | find ":DATA" ## Does not Pipe Within Powershell Properly
 }
 
 Function Function_RIP_VSS_INFO
@@ -2176,7 +2172,6 @@ Function Function_Hash_All_Files_OS_DRIVE
             clear
         }
     }
-    ##cmd.exe /c start dir /s /r %SYSTEMROOT%\ | find ":DATA" ## Does not Pipe Within Powershell Properly
 }
 
 Function Function_RIP_TRIAGE_SELECTOR
@@ -2214,10 +2209,6 @@ Function Function_RIP_TRIAGE_SELECTOR
         Function_RIP_RDP_BITMAP
         Function_RIP_AMCACHE
         Function_RIP_SHIMCACHE
-        #Function_Triage_Meta-Blue_DLLSEARCHORDER
-        #Function_Triage_Meta-Blue_ProcessHash
-        #Function_Triage_Meta-Blue_DriverHash
-        #Function_Triage_Meta-Blue_DLLHash
         Function_Get-DiskInfoMain
         Function_Prefetch_Rip
     }
@@ -2230,10 +2221,6 @@ Function Function_RIP_TRIAGE_SELECTOR
         Function_RIP_RDP_BITMAP
         Function_RIP_AMCACHE
         Function_RIP_SHIMCACHE
-        #Function_Triage_Meta-Blue_DLLSEARCHORDER
-        #Function_Triage_Meta-Blue_ProcessHash
-        #Function_Triage_Meta-Blue_DriverHash
-        #Function_Triage_Meta-Blue_DLLHash
         Function_RIP_Alt_Data_Streams
         Function_RIP_VSS_INFO
         Function_Hash_All_Files_OS_DRIVE
@@ -2285,7 +2272,6 @@ Function Function_RIP_TRIAGE_MAIN
         {
         write-host -fore Red -back black "[ERROR] Your Response Was Not YES or NO."
         function_failwhale
-        #clear
         Function_RIP_TRIAGE_MAIN
         }
     }    
